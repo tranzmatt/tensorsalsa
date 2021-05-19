@@ -1,6 +1,7 @@
 Author: Andreas Tille <tille@debian.org>
 Last-Update: Fri, 06 Nov 2020 09:54:26 +0100
 Description: Leave out minor bazel version
+ Otherwise bazel commands all fail with 'version not found'
 
 --- a/.bazelversion
 +++ b/.bazelversion
