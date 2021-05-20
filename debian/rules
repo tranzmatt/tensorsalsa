@@ -40,6 +40,9 @@ override_dh_install:
 	# get rid of spurious .params files
 	dh_install
 	rm debian/libtensorflow-*/usr/lib/${DEB_HOST_MULTIARCH}/*.params
+	# make missing .so links until we can persuade the build to do it
+	dh_link -p libtensorflow-cc2 usr/lib/${DEB_HOST_MULTIARCH}/libtensorflow_cc.so.2.3.1 usr/lib/${DEB_HOST_MULTIARCH}/libtensorflow_cc.so.2
+	dh_link -p libtensorflow-dev usr/lib/${DEB_HOST_MULTIARCH}/libtensorflow_cc.so.2.3.1 usr/lib/${DEB_HOST_MULTIARCH}/libtensorflow_cc.so
 	chrpath -d debian/libtensorflow-framework2/usr/lib/${DEB_HOST_MULTIARCH}/*
 	chrpath -d debian/libtensorflow-cc2/usr/lib/${DEB_HOST_MULTIARCH}/*
 	rsync -av --include=*/ --include=*.h --exclude=* --prune-empty-dirs --chmod=F644 --mkpath bazel-out/k8-opt/bin/tensorflow/  debian/libtensorflow-dev/usr/include/tensorflow
