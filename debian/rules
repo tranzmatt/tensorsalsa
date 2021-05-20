@@ -24,6 +24,10 @@ override_dh_auto_build:
 		--override_repository=rules_cc=$(CURDIR)/debian/mock_repos/rules_cc \
 		--override_repository=rules_java=$(CURDIR)/debian/mock_repos/rules_java \
 		//tensorflow:tensorflow_framework 
+override_dh_install:
+	# get rid of spurious .params files
+	dh_install
+	rm debian/libtensorflow-*/usr/lib/${DEB_HOST_MULTIARCH}/*.params
 
 overrride_dh_auto_test:
 	bazel test \
