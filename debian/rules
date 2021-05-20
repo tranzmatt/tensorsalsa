@@ -28,6 +28,7 @@ override_dh_install:
 	# get rid of spurious .params files
 	dh_install
 	rm debian/libtensorflow-*/usr/lib/${DEB_HOST_MULTIARCH}/*.params
+	rsync -av --include=*/ --include=*.h --exclude=* --prune-empty-dirs --chmod=F644 --mkpath bazel-out/k8-opt/bin/tensorflow/  debian/libtensorflow-dev/usr/include/tensorflow
 
 overrride_dh_auto_test:
 	bazel test \

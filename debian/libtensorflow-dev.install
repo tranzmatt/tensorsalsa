@@ -1,5 +1,2 @@
-usr/include/tensorflow
-usr/lib/*/libtensorflow_framework.so
-usr/lib/*/libtensorflow.so
-usr/lib/*/libtensorflow_cc.so
-usr/lib/*/pkgconfig
+bazel-out/k8-opt/bin/tensorflow/libtensorflow*.so usr/lib/${DEB_HOST_MULTIARCH}
+#usr/lib/*/pkgconfig
