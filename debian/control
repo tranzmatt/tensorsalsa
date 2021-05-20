@@ -91,23 +91,23 @@ Description: Computation using data flow graphs for scalable machine learning
  ops. Since other languages use the same libtensorflow_framework.so, op
  libraries are language agnostic.
 
-Package: libtensorflow2
-Architecture: any
-Multi-Arch: same
-Section: libs
-Depends: ${misc:Depends},
-         ${shlibs:Depends},
-         libtensorflow-framework2 (= ${binary:Version})
-Description: Computation using data flow graphs for scalable machine learning (C)
- TensorFlow is an open source software library for numerical computation
- using data flow graphs. The graph nodes represent mathematical operations,
- while the graph edges represent the multidimensional data arrays (tensors)
- that flow between them. This flexible architecture enables you to deploy
- computation to one or more CPUs or GPUs in a desktop, server, or mobile
- device without rewriting code.
- .
- This package ships shared object libtensorflow.so.2.0, which exports
- C API for TensorFlow (i.e. symbols named "*TF_*" or "*TFE_*").
+#Package: libtensorflow2
+#Architecture: any
+#Multi-Arch: same
+#Section: libs
+#Depends: ${misc:Depends},
+#         ${shlibs:Depends},
+#         libtensorflow-framework2 (= ${binary:Version})
+#Description: Computation using data flow graphs for scalable machine learning (C)
+# TensorFlow is an open source software library for numerical computation
+# using data flow graphs. The graph nodes represent mathematical operations,
+# while the graph edges represent the multidimensional data arrays (tensors)
+# that flow between them. This flexible architecture enables you to deploy
+# computation to one or more CPUs or GPUs in a desktop, server, or mobile
+# device without rewriting code.
+# .
+# This package ships shared object libtensorflow.so.2.0, which exports
+# C API for TensorFlow (i.e. symbols named "*TF_*" or "*TFE_*").
 
 Package: libtensorflow-cc2
 Architecture: any
@@ -146,18 +146,18 @@ Description: Computation using data flow graphs for scalable machine learning (d
  .
  This package ships C and C++ headers files for tensorflow.
 
-Package: python3-tensorflow
-Architecture: any
-Multi-Arch: foreign
-Depends: ${misc:Depends},
-         ${shlibs:Depends},
-         libtensorflow-framework2 (= ${binary:Version})
-Description: Computation using data flow graphs for scalable machine learning (Py3)
- TensorFlow is an open source software library for numerical computation
- using data flow graphs. The graph nodes represent mathematical operations,
- while the graph edges represent the multidimensional data arrays (tensors)
- that flow between them. This flexible architecture enables you to deploy
- computation to one or more CPUs or GPUs in a desktop, server, or mobile
- device without rewriting code.
- .
- This package ships Python3 interface of tensorflow.
+#Package: python3-tensorflow
+#Architecture: any
+#Multi-Arch: foreign
+#Depends: ${misc:Depends},
+#         ${shlibs:Depends},
+#         libtensorflow-framework2 (= ${binary:Version})
+#Description: Computation using data flow graphs for scalable machine learning (Py3)
+# TensorFlow is an open source software library for numerical computation
+# using data flow graphs. The graph nodes represent mathematical operations,
+# while the graph edges represent the multidimensional data arrays (tensors)
+# that flow between them. This flexible architecture enables you to deploy
+# computation to one or more CPUs or GPUs in a desktop, server, or mobile
+# device without rewriting code.
+# .
+# This package ships Python3 interface of tensorflow.
