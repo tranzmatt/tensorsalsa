@@ -56,3 +56,8 @@ overrride_dh_auto_test:
 		--override_repository=rules_cc=$(CURDIR)/debian/mock_repos/rules_cc \
 		--override_repository=rules_java=$(CURDIR)/debian/mock_repos/rules_java \
 		//tensorflow/cc/...
+
+
+override_dh_clean:
+	bazel clean
+	dh_clean

@@ -3,3 +3,4 @@ debian/build
 .tf_configure.bazelrc
 tools/python_bin_path.sh
 external/
+~/.bazel-*
