@@ -57,16 +57,12 @@ override_dh_install:
 	mv debian/libtensorflow_framework.pc debian/tmp/usr/$(LIB_PATH)/pkgconfig/
 	# get rid of spurious .params files
 	dh_install
-	rm debian/libtensorflow-*/usr/lib/${DEB_HOST_MULTIARCH}/*.params
+	rm -f debian/libtensorflow-*/usr/lib/$(DEB_HOST_MULTIARCH)/*.params
+	chrpath -d debian/libtensorflow-framework2/usr/lib/$(DEB_HOST_MULTIARCH)/*.so.*
+	chrpath -d debian/libtensorflow-cc2/usr/lib/$(DEB_HOST_MULTIARCH)/*.so.*
 	# make missing .so links until we can persuade the build to do it
-	dh_link -p libtensorflow-cc2 usr/lib/${DEB_HOST_MULTIARCH}/libtensorflow_cc.so.2.3.1 usr/lib/${DEB_HOST_MULTIARCH}/libtensorflow_cc.so.2
-	dh_link -p libtensorflow-dev usr/lib/${DEB_HOST_MULTIARCH}/libtensorflow_cc.so.2.3.1 usr/lib/${DEB_HOST_MULTIARCH}/libtensorflow_cc.so
-	# install pkgconfig files
-	mkdir -p debian/tmp/usr/$(LIB_PATH)/pkgconfig/
-	cp debian/libtensorflow_cc2.pc debian/tmp/usr/$(LIB_PATH)/pkgconfig/
-	cp debian/libtensorflow_framework2.pc debian/tmp/usr/$(LIB_PATH)/pkgconfig/
-	chrpath -d debian/libtensorflow-framework2/usr/lib/${DEB_HOST_MULTIARCH}/*
-	chrpath -d debian/libtensorflow-cc2/usr/lib/${DEB_HOST_MULTIARCH}/*
+	dh_link -p libtensorflow-cc2 usr/lib/$(DEB_HOST_MULTIARCH)/libtensorflow_cc.so.2.3.1 usr/lib/$(DEB_HOST_MULTIARCH)/libtensorflow_cc.so.2
+	dh_link -p libtensorflow-dev usr/lib/$(DEB_HOST_MULTIARCH)/libtensorflow_cc.so.2.3.1 usr/lib/$(DEB_HOST_MULTIARCH)/libtensorflow_cc.so
 	rsync -av --include=*/ --include=*.h --exclude=* --prune-empty-dirs --chmod=F644 --mkpath bazel-out/k8-opt/bin/tensorflow/  debian/libtensorflow-dev/usr/include/tensorflow
 
 #nobble the tests for now
