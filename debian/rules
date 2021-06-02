@@ -88,5 +88,6 @@ endif
 
 
 override_dh_clean:
-	bazel clean
+	bazel clean --expunge
+	rm -rf /tmp/.cache/bazel
 	dh_clean
