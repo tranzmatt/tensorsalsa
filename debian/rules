@@ -11,6 +11,9 @@ ifeq (,$(filter terse,$(DEB_BUILD_OPTIONS)))
         BAZELOPTS=-s
 endif
 
+# No point making debug packages until we can build with debug symbols
+DEB_BUILD_OPTIONS += noautodbgsym
+
 %:
 	dh $@
 
