@@ -1,0 +1,1 @@
+bazel-out/k8-opt/bin/libtensorflow_lite_all.so* usr/lib/${DEB_HOST_MULTIARCH}

@@ -11,3 +11,5 @@ bazelversion.patch
 remove-superceded-bazel2-option
 remove-rpaths-in-bazel.patch
 use-system-highwayhash.patch
+add-tflite-target-to-BUILD.diff
+remove-android-from-flatbuffers.patch

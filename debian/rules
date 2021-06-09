@@ -2,6 +2,8 @@
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 export PYTHON_BIN_PATH=/usr/bin/python3
 export TF_IGNORE_MAX_BAZEL_VERSION=1
+export TF_SET_ANDROID_WORKSPACE=False
+export CC_OPT_FLAGS="-march=native -Wno-sign-compare"
 export HOME=/tmp
 # not $(CURDIR), that leads to recursive symlinks
 PREFIX=/usr
@@ -19,6 +21,19 @@ override_dh_auto_configure:
 
 override_dh_auto_build:
 	mkdir -p $(CURDIR)/debian/dist
+	bazel --output_base=/tmp build \
+	-k \
+		--verbose_failures \
+		--repository_cache= \
+		--config=opt \
+		--distdir=./debian/dist \
+		--repo_env=TF_SYSTEM_LIBS=nsync,curl,double_conversion,snappy,gif,zlib,com_google_protobuf,com_github_grpc_grpc,jsoncpp_git,libjpeg_turbo,nasm,png,highwayhash \
+		--override_repository=bazel_skylib=$(CURDIR)/debian/mock_repos/bazel_skylib \
+		--override_repository=rules_cc=$(CURDIR)/debian/mock_repos/rules_cc \
+		--override_repository=rules_java=$(CURDIR)/debian/mock_repos/rules_java \
+		--config=native_arch_linux \
+		--nokeep_state_after_build \
+		:libtensorflow_lite_all.so
 	bazel build \
 		-k $(BAZELOPTS)\
 		--verbose_failures \
@@ -57,7 +72,9 @@ override_dh_install:
 	mv debian/libtensorflow_framework.pc debian/tmp/usr/$(LIB_PATH)/pkgconfig/
 	# get rid of spurious .params files
 	dh_install
+	rm -f debian/libtensorflowlite/usr/lib/${DEB_HOST_MULTIARCH}/*.params
 	rm -f debian/libtensorflow-*/usr/lib/$(DEB_HOST_MULTIARCH)/*.params
+	chrpath -d debian/libtensorflowlite/usr/lib/${DEB_HOST_MULTIARCH}/libtensorflow_lite_all.so
 	chrpath -d debian/libtensorflow-framework2/usr/lib/$(DEB_HOST_MULTIARCH)/*.so.*
 	chrpath -d debian/libtensorflow-cc2/usr/lib/$(DEB_HOST_MULTIARCH)/*.so.*
 	# make missing .so links until we can persuade the build to do it
@@ -84,6 +101,15 @@ endif
 
 
 override_dh_clean:
-	bazel clean --expunge
+	#bazel clean --expunge ##failing ci build
+        #16:12:32  INFO: Starting clean (this may take a while). Consider using --async if the clean takes more than several minutes.
+	#16:12:38  WARNING: Waiting for server process to terminate (waited 5 seconds, waiting at most 60)
+	#16:12:43  WARNING: Waiting for server process to terminate (waited 10 seconds, waiting at most 60)
+	#16:13:06  WARNING: Waiting for server process to terminate (waited 30 seconds, waiting at most 60)
+	#16:13:38  INFO: Waited 60 seconds for server process (pid=3852) to terminate.
+	#16:13:38  WARNING: Waiting for server process to terminate (waited 5 seconds, waiting at most 10)
+	#16:13:43  WARNING: Waiting for server process to terminate (waited 10 seconds, waiting at most 10)
+	#16:13:43  INFO: Waited 10 seconds for server process (pid=3852) to terminate.
+	#16:13:43  FATAL: Attempted to kill stale server process (pid=3852) using SIGKILL, but it did not die in a timely fashion.
 	rm -rf /tmp/.cache/bazel
 	dh_clean
