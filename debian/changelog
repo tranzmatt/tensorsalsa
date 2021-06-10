@@ -1,4 +1,16 @@
-tensorflow (2.3.1-1) UNRELEASED; urgency=medium
+tensorflow (2.3.1-1) experimental; urgency=medium
+
+  [ Wookey ]
+  * Complete initial packaging (Closes: #959765)
+    (build with bazel3, install files, symlinks, verbose builds)
+  * Remove unused embedded tarballs
+  * Remove rpaths
+  * Add pkgconfig files
+  * Force clean builds
+  * Update Copyright to 2.3.1
+  * Enable debug builds/packages
+  * Use system libpng, highwayhash, jsoncpp, protoc
+  * Update symbols
 
   [ Michael R. Crusoe ]
   * Restart packaging using bazel-bootstrap
@@ -12,7 +24,7 @@ tensorflow (2.3.1-1) UNRELEASED; urgency=medium
   * debhelper-compat 13 (routine-update)
   * cme fix dpkg-control
 
- -- Andreas Tille <tille@debian.org>  Thu, 05 Nov 2020 11:36:39 +0100
+ -- Wookey <wookey@debian.org>  Thu, 10 Jun 2021 09:33:55 +0000
 
 tensorflow (2.0.0-1) experimental; urgency=medium
 
