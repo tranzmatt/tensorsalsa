@@ -55,7 +55,7 @@ RUN python3 -m pip install --upgrade pip \
 WORKDIR /tensorflow
 
 #RUN git clone --recursive https://salsa.debian.org/deeplearning-team/tensorflow.git salsa
-RUN git clone --recursive git@github.com:tranzmatt/tensorsalsa.git salsa \
+RUN git clone --recursive https://github.com/tranzmatt/tensorsalsa.git salsa \
     && wget http://wookware.org/files/tensorflow_2.3.1.orig.tar.xz
 
 RUN cd salsa \
