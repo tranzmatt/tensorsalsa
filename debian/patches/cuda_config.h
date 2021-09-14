@@ -16,11 +16,14 @@ limitations under the License.
 #ifndef CUDA_CUDA_CONFIG_H_
 #define CUDA_CUDA_CONFIG_H_
 
-#define TF_CUDA_CAPABILITIES CudaVersion("3.0"), CudaVersion("6.0")
+// 6.1,6.2,7.2,7.5,8.0,8.6
 
-#define TF_CUDA_VERSION "10.1"
-#define TF_CUDA_LIB_VERSION "10"
-#define TF_CUDNN_VERSION "7"
+#define TF_CUDA_CAPABILITIES CudaVersion("6.1"), CudaVersion("6.2"), CudaVersion("7.2"), \
+   CudaVersion("7.5"), CudaVersion("8.0"), CudaVersion("8.6")
+
+#define TF_CUDA_VERSION "11.3"
+#define TF_CUDA_LIB_VERSION "11"
+#define TF_CUDNN_VERSION "8"
 
 #define TF_CUDA_TOOLKIT_PATH "/usr/"
 

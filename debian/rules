@@ -17,7 +17,7 @@ endif
 	dh $@
 
 override_dh_auto_configure:
-	printf '%s\n%s\n%s\n%s\n%s\n%s\n%s\n' /usr/lib/python3/dist-packages N N N N -Wno-sign-compare N | ./configure
+	printf '%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s %s\n%s\n' /usr/lib/python3/dist-packages N N Y Y 6.1,6.2,7.2,7.5,8.0,8.6 N /usr/bin/gcc -march=native -Wno-sign-compare N | ./configure
 
 override_dh_auto_build:
 	mkdir -p $(CURDIR)/debian/dist
