@@ -2,6 +2,8 @@
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 export PYTHON_BIN_PATH=/usr/bin/python3
 export TF_IGNORE_MAX_BAZEL_VERSION=1
+export TF_SET_ANDROID_WORKSPACE=False
+export CC_OPT_FLAGS="-march=native -Wno-sign-compare"
 export HOME=/tmp
 # not $(CURDIR), that leads to recursive symlinks
 PREFIX=/usr
@@ -16,7 +18,7 @@ endif
 	dh $@
 
 override_dh_auto_configure:
-	printf '%s\n%s\n%s\n%s\n%s\n%s\n%s\n' /usr/lib/python3/dist-packages N N N N -Wno-sign-compare N | ./configure
+	printf '%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s %s\n%s\n' /usr/lib/python3/dist-packages N N Y Y 6.1,6.2,7.2,7.5,8.0,8.6 N /usr/bin/gcc -march=native -Wno-sign-compare N | ./configure
 
 override_dh_auto_build:
 	bazel build \
