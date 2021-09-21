@@ -80,7 +80,9 @@ RUN apt-get update -q \
 
 #RUN git clone --recursive https://salsa.debian.org/deeplearning-team/tensorflow.git salsa
 RUN wget http://wookware.org/files/tensorflow_${TF_VERSION}.orig.tar.xz
-RUN git clone --single-branch --branch=master --recursive \
+ARG SHA=LATEST
+RUN SHA=${SHA} \
+    git clone --single-branch --branch=master --recursive \
        https://github.com/tranzmatt/tensorsalsa.git salsa
 
 WORKDIR /tensorflow/salsa
