@@ -72,13 +72,19 @@ RUN python3 -m pip install --upgrade pip \
 
 WORKDIR /tensorflow
 
+ARG TF_VERSION=2.3.1
+ADD tensorflow-build-deps_${TF_VERSION}*_amd64.deb .
+RUN apt-get update -q \
+    && apt install -y ./tensorflow-build-deps_${TF_VERSION}*_amd64.deb \
+    && rm -rf /var/lib/apt/lists/*
+
 #RUN git clone --recursive https://salsa.debian.org/deeplearning-team/tensorflow.git salsa
-RUN wget http://wookware.org/files/tensorflow_2.3.1.orig.tar.xz
+RUN wget http://wookware.org/files/tensorflow_${TF_VERSION}.orig.tar.xz
 RUN git clone --single-branch --branch=master --recursive \
        https://github.com/tranzmatt/tensorsalsa.git salsa
 
 WORKDIR /tensorflow/salsa
-RUN cd salsa \
+RUN git config pull.rebase true \
     && git pull \
     && apt-get update -q \
     && mk-build-deps --install --tool 'apt-get --yes --no-install-recommends' --remove ./debian/control \
